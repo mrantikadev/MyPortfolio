@@ -1,36 +1,38 @@
-﻿@model Experience
+﻿@model Portfolio
 
 @{
-    ViewData["Title"] = "UpdateExperience";
+    ViewData["Title"] = "InsertPortfolio";
     Layout = "~/Views/Layout/Index.cshtml";
 }
 
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">Deneyim Güncelleme</h4>
+		<h4 class="page-title">Proje Ekleme</h4>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<div class="card-title">Deneyim Güncelleme Sayfası</div>
+						<div class="card-title">Proje Ekleme Sayfası</div>
 					</div>
 					<div class="card-body">
 
 						<form method="post">
-							<input type="hidden" asp-for="ExperienceId"/>
-							<label>Firma Bilgisi</label>
-							<input type="text" asp-for="Head" class="form-control" />
-							<br />
-							<label>Çalışılan Pozisyon</label>
+							<label>Proje Adı</label>
 							<input type="text" asp-for="Title" class="form-control" />
+							<br />
+							<label>Kullanılan Teknolojiler</label>
+							<input type="text" asp-for="Technology" class="form-control" />
 							<br />
 							<label>Açıklama</label>
 							<textarea rows="4" asp-for="Description" class="form-control"></textarea>
 							<br />
-							<label>Tarih Aralığı</label>
+							<label>Tarih</label>
 							<input type="text" asp-for="Date" class="form-control" />
 							<br />
-							<button class="btn btn-primary">Deneyimi Güncelle</button>
+							<label>Proje Linki</label>
+							<input type="text" asp-for="Url" class="form-control" />
+							<br />
+							<button class="btn btn-primary">Projeyi Ekle</button>
 						</form>
 
 					</div>
