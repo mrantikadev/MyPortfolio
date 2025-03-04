@@ -1,42 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPortfolio.DataAccessLayer.Abstract;
 using MyPortfolio.DataAccessLayer.Concrete;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 
 namespace MyPortfolio.DataAccessLayer.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericDal<TEntity>
-        where TEntity : class
+    public class GenericRepository<TEntity> : IGenericDal<TEntity> where TEntity : class
     {
         private readonly Context _context;
         private readonly DbSet<TEntity> _table;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GenericRepository(Context context)
+        public GenericRepository(Context context, IUnitOfWork unitOfWork)
         {
             _context = context;
             _table = _context.Set<TEntity>();
+            _unitOfWork = unitOfWork;
         }
 
-        public void Insert(TEntity t)
+        public void Insert(TEntity entity)
         {
-            _context.Add(t);
-            _context.SaveChanges();
+            _context.Add(entity);
+            _unitOfWork.Commit();
         }
 
-        public void Update(TEntity t)
+        public void Update(TEntity entity)
         {
-            _context.Update(t);
-            _context.SaveChanges();
+            _context.Update(entity);
+            _unitOfWork.Commit();
         }
 
-        public void Delete(TEntity t)
+        public void Delete(TEntity entity)
         {
-            _context.Remove(t);
-            _context.SaveChanges();
+            _context.Remove(entity);
+            _unitOfWork.Commit();
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _table.ToList();
+            return _table.AsNoTracking().ToList();
         }
 
         public TEntity GetById(int id)
