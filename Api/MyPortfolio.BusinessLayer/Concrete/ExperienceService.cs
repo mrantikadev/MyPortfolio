@@ -1,41 +1,41 @@
 ﻿using MyPortfolio.BusinessLayer.Abstract;
-using MyPortfolio.DataAccessLayer.Abstract;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 using MyPortfolio.EntityLayer.Concrete;
 
 namespace MyPortfolio.BusinessLayer.Concrete
 {
     public class ExperienceService : IExperienceService
     {
-        private readonly IExperienceDal _experienceDal;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ExperienceService(IExperienceDal experienceDal)
+        public ExperienceService(IUnitOfWork unitOfWork)
         {
-            _experienceDal = experienceDal;
+            _unitOfWork = unitOfWork;
         }
 
         public void TInsert(Experience entity)
         {
-            _experienceDal.Insert(entity);
+            _unitOfWork.Experiences.Insert(entity);
         }
 
         public void TDelete(Experience entity)
         {
-            _experienceDal.Delete(entity);
+            _unitOfWork.Experiences.Delete(entity);
         }
 
         public void TUpdate(Experience entity)
         {
-            _experienceDal.Update(entity);
+            _unitOfWork.Experiences.Update(entity);
         }
 
         public IEnumerable<Experience> TGetAll()
         {
-            return _experienceDal.GetAll();
+            return _unitOfWork.Experiences.GetAll();
         }
 
         public Experience TGetById(int id)
         {
-            return _experienceDal.GetById(id);
+            return _unitOfWork.Experiences.GetById(id);
         }        
     }
 }

@@ -1,41 +1,41 @@
 ﻿using MyPortfolio.BusinessLayer.Abstract;
-using MyPortfolio.DataAccessLayer.Abstract;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 using MyPortfolio.EntityLayer.Concrete;
 
 namespace MyPortfolio.BusinessLayer.Concrete
 {
     public class MessageService : IMessageService
     {
-        private readonly IMessageDal _messageDal;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MessageService(IMessageDal messageDal)
+        public MessageService(IUnitOfWork unitOfWork)
         {
-            _messageDal = messageDal;
+            _unitOfWork = unitOfWork;
         }
 
         public void TInsert(Message entity)
         {
-            _messageDal.Insert(entity);
+            _unitOfWork.Messages.Insert(entity);
         }
 
         public void TDelete(Message entity)
         {
-            _messageDal.Delete(entity);
+            _unitOfWork.Messages.Delete(entity);
         }
 
         public void TUpdate(Message entity)
         {
-            _messageDal.Update(entity);
+            _unitOfWork.Messages.Update(entity);
         }
 
         public IEnumerable<Message> TGetAll()
         {
-            return _messageDal.GetAll();
+            return _unitOfWork.Messages.GetAll();
         }
 
         public Message TGetById(int id)
         {
-            return _messageDal.GetById(id);
+            return _unitOfWork.Messages.GetById(id);
         }        
     }
 }

@@ -1,41 +1,41 @@
 ﻿using MyPortfolio.BusinessLayer.Abstract;
-using MyPortfolio.DataAccessLayer.Abstract;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 using MyPortfolio.EntityLayer.Concrete;
 
 namespace MyPortfolio.BusinessLayer.Concrete
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectDal _projectDal;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectService(IProjectDal projectDal)
+        public ProjectService(IUnitOfWork unitOfWork)
         {
-            _projectDal = projectDal;
+            _unitOfWork = unitOfWork;
         }
 
         public void TInsert(Project entity)
         {
-            _projectDal.Insert(entity);
+            _unitOfWork.Projects.Insert(entity);
         }
 
         public void TDelete(Project entity)
         {
-            _projectDal.Delete(entity);
+            _unitOfWork.Projects.Delete(entity);
         }
 
         public void TUpdate(Project entity)
         {
-            _projectDal.Update(entity);
+            _unitOfWork.Projects.Update(entity);
         }
 
         public IEnumerable<Project> TGetAll()
         {
-            return _projectDal.GetAll();
+            return _unitOfWork.Projects.GetAll();
         }
 
         public Project TGetById(int id)
         {
-            return _projectDal.GetById(id);
+            return _unitOfWork.Projects.GetById(id);
         }        
     }
 }

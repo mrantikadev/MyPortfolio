@@ -1,41 +1,41 @@
 ﻿using MyPortfolio.BusinessLayer.Abstract;
-using MyPortfolio.DataAccessLayer.Abstract;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 using MyPortfolio.EntityLayer.Concrete;
 
 namespace MyPortfolio.BusinessLayer.Concrete
 {
     public class SocialMediaService : ISocialMediaService
     {
-        private readonly ISocialMediaDal _socialMediaDal;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SocialMediaService(ISocialMediaDal socialMediaDal)
+        public SocialMediaService(IUnitOfWork unitOfWork)
         {
-            _socialMediaDal = socialMediaDal;
+            _unitOfWork = unitOfWork;
         }
 
         public void TDelete(SocialMedia entity)
         {
-            _socialMediaDal.Delete(entity);
+            _unitOfWork.SocialMedias.Delete(entity);
         }
 
         public IEnumerable<SocialMedia> TGetAll()
         {
-            return _socialMediaDal.GetAll();
+            return _unitOfWork.SocialMedias.GetAll();
         }
 
         public SocialMedia TGetById(int id)
         {
-            return _socialMediaDal.GetById(id);
+            return _unitOfWork.SocialMedias.GetById(id);
         }
 
         public void TInsert(SocialMedia entity)
         {
-            _socialMediaDal.Insert(entity);
+            _unitOfWork.SocialMedias.Insert(entity);
         }
 
         public void TUpdate(SocialMedia entity)
         {
-            _socialMediaDal.Update(entity);
+            _unitOfWork.SocialMedias.Update(entity);
         }
     }
 }

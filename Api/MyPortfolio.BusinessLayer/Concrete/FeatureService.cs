@@ -1,41 +1,41 @@
 ﻿using MyPortfolio.BusinessLayer.Abstract;
-using MyPortfolio.DataAccessLayer.Abstract;
+using MyPortfolio.DataAccessLayer.UnitOfWork.Abstract;
 using MyPortfolio.EntityLayer.Concrete;
 
 namespace MyPortfolio.BusinessLayer.Concrete
 {
     public class FeatureService : IFeatureService
     {
-        private readonly IFeatureDal _featureDal;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FeatureService(IFeatureDal featureDal)
+        public FeatureService(IUnitOfWork unitOfWork)
         {
-            _featureDal = featureDal;
+            _unitOfWork = unitOfWork;
         }
 
         public void TInsert(Feature entity)
         {
-            _featureDal.Insert(entity);
+            _unitOfWork.Features.Insert(entity);
         }
 
         public void TDelete(Feature entity)
         {
-            _featureDal.Delete(entity);
+            _unitOfWork.Features.Delete(entity);
         }
 
         public void TUpdate(Feature entity)
         {
-            _featureDal.Update(entity);
+            _unitOfWork.Features.Update(entity);
         }
 
         public IEnumerable<Feature> TGetAll()
         {
-            return _featureDal.GetAll();
+            return _unitOfWork.Features.GetAll();
         }
 
         public Feature TGetById(int id)
         {
-            return _featureDal.GetById(id);
+            return _unitOfWork.Features.GetById(id);
         }
     }
 }

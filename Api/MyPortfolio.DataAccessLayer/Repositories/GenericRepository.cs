@@ -18,6 +18,11 @@ namespace MyPortfolio.DataAccessLayer.Repositories
             _unitOfWork = unitOfWork;
         }
 
+        public GenericRepository(Context context)
+        {
+            _context = context;
+        }
+
         public void Insert(TEntity entity)
         {
             _context.Add(entity);
@@ -43,7 +48,7 @@ namespace MyPortfolio.DataAccessLayer.Repositories
 
         public TEntity GetById(int id)
         {
-            return _table.Find(id);
+            return _table.AsNoTracking().FirstOrDefault(e => EF.Property<int>(e, "Id") == id);
         }        
     }
 }
